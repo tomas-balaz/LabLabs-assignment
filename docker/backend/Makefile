@@ -5,10 +5,11 @@ backend: main.go
 
 docker: Dockerfile backend
 # TASK: Build docker image here
+	docker build -t tomasbalaz/sample-backend:0.1 .
 
 docker-run: docker
-	docker run -p 9990:8080 -ti repo/sample-backend:0.1
+	docker run -p 9990:8080 -ti tomasbalaz/sample-backend:0.1
 
 clean:
 	rm -rf backend
-	docker rmi -f repo/sample-backend:0.1 | true
+	docker rmi -f tomasbalaz/sample-backend:0.1 | true
