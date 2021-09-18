@@ -4,7 +4,7 @@ FROM nginx:alpine
 
 # added
 WORKDIR /app
-ENV APP="sample-app"
+# ENV APP="sample-app"
 
 COPY index.html /usr/share/nginx/html
 COPY default.conf /etc/nginx/conf.d

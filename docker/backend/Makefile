@@ -8,7 +8,7 @@ docker: Dockerfile backend
 	docker build -t tomasbalaz/sample-backend:0.1 .
 
 docker-run: docker
-	docker run -p 9990:8080 -ti tomasbalaz/sample-backend:0.1
+	docker run -d -p 9990:8080 --name goBE tomasbalaz/sample-backend:0.1
 
 clean:
 	rm -rf backend
