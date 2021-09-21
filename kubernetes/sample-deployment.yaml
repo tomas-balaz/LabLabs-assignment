@@ -4,13 +4,100 @@
 ###
 # Deploymnent definition
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-app-dep
+  namespace: lablabs
+  labels:
+    name: go-app
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: go-app
+  template:
+    metadata:
+      labels:
+        name: go-app
+    spec:
+      containers:
+      - name: go-be
+        image: tomasbalaz/sample-backend:0.1
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /app/test
+            port: 8080
+            httpHeaders:
+          initialDelaySeconds: 3
+          periodSeconds: 3
+      - name: nginx-proxy
+        image: tomasbalaz/sample-nginx:0.1
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /app/test
+            port: 80
+            httpHeaders:
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 3
+
 ---
 ###
 # Service definition
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app
+  namespace: lablabs
+  labels:
+    name: go-app
+    env: dev
+spec:
+  type: NodePort
+  selector:
+    name: go-app
+  ports:
+    - port: 80
+      name: http
+      targetPort: 80
+      protocol: TCP
+      nodePort: 30002
+
 ---
 ###
 # Ingress definition
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sample-app-ingress
+  namespace: lablabs
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: sample-app.info
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sample-app
+                port:
+                  number: 80
 
 ---
 ###
