@@ -34,6 +34,13 @@ spec:
             httpHeaders:
           initialDelaySeconds: 3
           periodSeconds: 3
+        resources:
+          limits:
+            cpu: "0.15"
+            memory: "100Mi"
+          requests:
+            cpu: "0.05"
+            memory: "50Mi"
       - name: nginx-proxy
         image: tomasbalaz/sample-nginx:0.1
         ports:
@@ -51,6 +58,13 @@ spec:
             port: 80
           initialDelaySeconds: 3
           periodSeconds: 3
+        resources:
+          limits:
+            cpu: "0.15"
+            memory: "100Mi"
+          requests:
+            cpu: "0.05"
+            memory: "50Mi"
 
 ---
 ###
@@ -102,3 +116,23 @@ spec:
 ---
 ###
 # HPA definition
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: sample-app-hpa
+  namespace: lablabs
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: go-app-dep
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 15

@@ -1,5 +1,5 @@
 # TASK:
-# Treba implementovat vraci zadania
+# Treba implementovat vramci zadania
 #
 # Aplikacia je by default dostupna na porte 8080
 

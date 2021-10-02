@@ -62,6 +62,9 @@ curl -v sample-app.info/app/testasdasd
     cpu: 15%
 
   Pomocou HTTP benchmark vytvor load na podoch tak aby HPA pridavalo nove pody.
+  ```
+  kubectl run -i -n lablabs --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.001; do wget -q -O- http://sample-app; done"
+  ```
 
 7) Implementuj blue/green mode nasadenia updatu aplikacie. Popis aky je rozdiel medzi Rolling Update/Recreate. Ake su ich vyhody/nevyhody, na co treba davat pozor a ake maju parametre. [8]
 
