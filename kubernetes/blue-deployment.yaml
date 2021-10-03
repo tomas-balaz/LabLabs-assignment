@@ -39,13 +39,13 @@ spec:
         image: tomasbalaz/sample-nginx:0.1
         ports:
         - containerPort: 80
-        livenessProbe:
-          httpGet:
-            path: /app/test
-            port: 80
-            httpHeaders:
-          initialDelaySeconds: 3
-          periodSeconds: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /app/test
+        #     port: 80
+        #     httpHeaders:
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
         readinessProbe:
           httpGet:
             path: /
