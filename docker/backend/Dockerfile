@@ -5,14 +5,20 @@
 
 # Inspirovane podla https://docs.docker.com/language/golang/build-images/
 
-FROM golang:1.16-alpine
+FROM golang:1.16-alpine as builder
 
-WORKDIR /app
+WORKDIR /build
 
 COPY main.go ./
 COPY go.mod ./
 
 RUN go build -o ./go-app
+
+
+FROM alpine:latest
+
+WORKDIR /app
+COPY --from=builder /build/go-app .
 
 EXPOSE 8080
 
