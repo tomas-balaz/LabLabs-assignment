@@ -70,7 +70,10 @@ curl -v sample-app.info/app/testasdasd
 
 8) Pre build backend containera pouzi multistage docker build pattern [6]
 
-9) Implementuj PodDistribution budget a vysvetli preco a kedy to ma zmysel.
+9) Implementuj Pod Disruption budget a vysvetli preco a kedy to ma zmysel.
+
+*Defines the minimum number of replicas that must be available for that application to operate in a stable manner during a voluntary disruption*
+https://thenewstack.io/kubernetes-use-poddisruptionbudgets-for-application-maintenance-and-upgrades/
 
 10) Implementuj a nastav CI podla lubovolneho vyberu pipeline pre build a testovanie containerov.
     Cielom je pri kazdom commite do repositara vybuildovat a otestovat containery. A nasledne ich pushnut do docker repositara.

@@ -11,9 +11,8 @@ metadata:
   namespace: lablabs
   labels:
     name: go-app
-    env: dev
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       name: go-app
@@ -21,6 +20,7 @@ spec:
     metadata:
       labels:
         name: go-app
+        version: green
     spec:
       containers:
       - name: go-be
@@ -77,11 +77,11 @@ metadata:
   namespace: lablabs
   labels:
     name: go-app
-    env: dev
 spec:
   type: NodePort
   selector:
     name: go-app
+    version: green
   ports:
     - port: 80
       name: http
@@ -136,3 +136,18 @@ spec:
       target:
         type: Utilization
         averageUtilization: 15
+
+---
+###
+# PDB definition
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: go-app-pdb
+  namespace: lablabs
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      name: go-app
