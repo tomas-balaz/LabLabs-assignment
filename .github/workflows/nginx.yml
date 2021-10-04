@@ -16,14 +16,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-#     - name: Install Nginx
-#       run: sudo apt-get install -y nginx
-
     - name: Copy Nginx Configuration
       run: sudo cp ./docker/nginx/default.conf /etc/nginx/conf.d
 
-    - name: Test Nginx Configuration
-      run: nginx -t
+#     - name: Test Nginx Configuration
+#       run: nginx -t
 
   push_to_registry:
     name: Push Docker image to Docker Hub
