@@ -20,7 +20,7 @@ jobs:
 #       run: sudo apt-get install -y nginx
 
     - name: Copy Nginx Configuration
-      run: cp ./docker/nginx/default.conf /etc/nginx/conf.d
+      run: sudo cp ./docker/nginx/default.conf /etc/nginx/conf.d
 
     - name: Test Nginx Configuration
       run: nginx -t
