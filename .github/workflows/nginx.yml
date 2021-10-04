@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install Nginx
-      run: apt install nginx
+      run: sudo apt-get install -y nginx
 
     - name: Test Nginx Configuration
       run: nginx -t ./docker/nginx/
